@@ -8,7 +8,7 @@ v2geo
 * protoc
 * python library: protobuf
 
-On Debian or Ubuntu, you can simply `apt install wget python3 protoc python3-protobuf` to get everything done.
+On Debian or Ubuntu, you can simply `apt install wget python3 protobuf-compiler python3-protobuf` to get everything done.
 
 # Steps
 
