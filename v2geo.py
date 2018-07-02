@@ -14,6 +14,7 @@ class OutputType(enum.Enum):
 def process_ip_input(geoiplist, input_file, country_code):
     geoip = geoiplist.entry.add()
     geoip.country_code = country_code
+    data_processed = False
     for line in input_file:
         line = line.strip()
         if line.startswith('#'):
@@ -22,11 +23,15 @@ def process_ip_input(geoiplist, input_file, country_code):
         cidr = geoip.cidr.add()
         cidr.prefix = int(prefix)
         cidr.ip = inet_aton(network)
+        data_processed = True
+    if not data_processed:
+        raise RuntimeError('empty input')
 
 
 def process_site_input(geositelist, input_file, country_code):
     geosite = geositelist.entry.add()
     geosite.country_code = country_code
+    data_processed = False
     for line in input_file:
         line = line.strip()
         if line.startswith('#'):
@@ -44,6 +49,9 @@ def process_site_input(geositelist, input_file, country_code):
             else:
                 raise RuntimeError('Unknwon domain format: {} in file {}'.format(type, input_file))
             domain.value = value
+        data_processed = True
+    if not data_processed:
+        raise RuntimeError('empty input')
         
 
 def main():
